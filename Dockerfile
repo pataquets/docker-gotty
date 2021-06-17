@@ -1,5 +1,5 @@
 FROM golang
 
-RUN go get github.com/yudai/gotty
+RUN go get -v github.com/yudai/gotty
 
 ENTRYPOINT [ "gotty" ]
