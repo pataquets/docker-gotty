@@ -1,5 +1,7 @@
 FROM golang:1
 
-RUN go get -v github.com/yudai/gotty
+ARG GOTTY_VERSION
+
+RUN go install -v github.com/sorenisanerd/gotty@${GOTTY_VERSION:-latest}
 
 ENTRYPOINT [ "gotty" ]
