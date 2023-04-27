@@ -1,0 +1,30 @@
+# Usage:
+# * Use `docker compose up -d` and optionally customize `GOTTY_COMMAND` variable.
+# * Use `docker compose run` to specify GoTTY command from the command line:
+#   `docker compose run gotty --enable-webgl --permit-write ssh user@172.17.0.1`
+
+version: "2.4"
+services:
+  gotty:
+    container_name: gotty
+    image: gotty
+    build:
+      # context: https://github.com/pataquets/docker-gotty.git
+      context: .
+      args:
+        - EXTRA_PACKAGES=openssh-client
+        - GOTTY_VERSION=latest
+    network_mode: host
+    # ports:
+    #   - "8080:8080"
+    stdin_open: true
+    tty: true
+    command:
+      - "--enable-webgl"
+      - "--permit-write"
+      - "${GOTTY_COMMAND:-bash}"
+    # volumes:
+    #   - type: bind
+    #     source: /etc/timezone
+    #     target: /etc/timezone
+    #     read_only: true
